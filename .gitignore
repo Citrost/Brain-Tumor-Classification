@@ -1,0 +1,14 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Thư mục chứa dữ liệu thô (Kích thước quá lớn, tuyệt đối không đưa lên Git)
+Kaggle_Dataset/
+
+# Các thư mục chứa file tạm, file backup không cần thiết
+Other/
+
+# *.pth
