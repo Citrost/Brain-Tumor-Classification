@@ -60,7 +60,7 @@ def preprocess_image_for_model(img, img_size=(224, 224)):
     # 2. Resize về kích thước chuẩn đầu vào của CNN
     resized_img = cv2.resize(cropped_img, img_size, interpolation=cv2.INTER_CUBIC)
     
-    # 3. Chuẩn hóa giá trị pixel về khoảng [0, 1] giống như chuẩn hóa tập Train ở Lab 7
+    # 3. Chuẩn hóa giá trị pixel về khoảng [0, 1]
     normalized_img = resized_img.astype(np.float32) / 255.0
     
     # 4. Chuyển đổi từ định dạng HWC (OpenCV) sang CHW (PyTorch) và thêm Batch Dimension
@@ -100,7 +100,7 @@ class BrainTumorCNN(nn.Module):
         # Adaptive pooling giúp chuyển đổi đầu ra về kích thước cố định (7x7) bất kể kích thước ảnh gốc
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
         
-        # --- CÁC TẦNG PHẲNG / TUYẾN TÍNH (Chính là MLP trong Lab 7) ---
+        # --- CÁC TẦNG PHẲNG / TUYẾN TÍNH ---
         # Tại đây, chúng ta "duỗi phẳng" ma trận đặc trưng thành một mảng số dài để đưa vào phân loại nhị phân/đa lớp
         self.fc1 = nn.Linear(64 * 7 * 7, 128) # Lớp ẩn 128 nơ-ron
         self.dropout = nn.Dropout(0.3)        # Ngăn chặn Overfitting (Học vẹt)
@@ -117,7 +117,7 @@ class BrainTumorCNN(nn.Module):
         # Thu nhỏ ma trận
         x = self.avgpool(x)
         
-        # Duỗi phẳng (Flatten) giống như chuẩn hóa đầu vào Lab 7
+        # Duỗi phẳng (Flatten)
         x = x.view(x.size(0), -1)
         
         # Đi qua các tầng ẩn và hàm kích hoạt ReLU
